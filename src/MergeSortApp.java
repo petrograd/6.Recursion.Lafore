@@ -17,23 +17,30 @@ class DArray {
     }
     public void mergeSort() {
         long[] workSpace = new long[nElems];
-        recMergeSort(workSpace, 0, nElems-1);
+        recMergeSort(workSpace, 0, nElems-1, 0);
     }
-    private void recMergeSort(long[] workSpace, int lowerBound, int upperBound){
-        System.out.println("Entering " + lowerBound + "-" + upperBound);
+    private void recMergeSort(long[] workSpace, int lowerBound, int upperBound, int offset){
+        String prefix = "";
+        for (int i = 0; i < offset; i++) {
+            prefix = prefix + " ";
+        }
+        System.out.println(prefix + "Entering " + lowerBound + "-" + upperBound);
         if (lowerBound == upperBound) {
-            System.out.println("Base-Case Return " + lowerBound + "-" + upperBound);
+            System.out.println(prefix + "Base-Case Return " + lowerBound + "-" + upperBound);
             return;
         } else {
+            prefix = prefix + " ";
             int mid = (lowerBound + upperBound) / 2;
-            System.out.println("Will sort low half of " + lowerBound + "-" + upperBound);
-            recMergeSort(workSpace, lowerBound, mid);
-            System.out.println("Will sort high half of " + lowerBound + "-" + upperBound);
-            recMergeSort(workSpace, mid+1, upperBound);
-            System.out.println("Will merge halves into " + lowerBound + "-" + upperBound);
+            System.out.println(prefix + "Will sort low half of " + lowerBound + "-" + upperBound);
+            recMergeSort(workSpace, lowerBound, mid, offset + 2);
+            System.out.println(prefix + "Will sort high half of " + lowerBound + "-" + upperBound);
+            recMergeSort(workSpace, mid+1, upperBound, offset + 2);
+            System.out.println(prefix + "Will merge halves into " + lowerBound + "-" + upperBound);
             merge(workSpace, lowerBound, mid+1, upperBound);
         }
-        System.out.println("Return " + lowerBound + "-" + upperBound);
+        System.out.print(prefix + "Return " + lowerBound + "-" + upperBound + "         theArray=");
+        display();
+
     }
     private void merge(long[] workSpace, int lowPtr, int highPtr, int upperBound) {
         int mid = highPtr-1;
