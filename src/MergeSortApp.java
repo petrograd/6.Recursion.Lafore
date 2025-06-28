@@ -20,14 +20,20 @@ class DArray {
         recMergeSort(workSpace, 0, nElems-1);
     }
     private void recMergeSort(long[] workSpace, int lowerBound, int upperBound){
+        System.out.println("Entering " + lowerBound + "-" + upperBound);
         if (lowerBound == upperBound) {
+            System.out.println("Base-Case Return " + lowerBound + "-" + upperBound);
             return;
         } else {
             int mid = (lowerBound + upperBound) / 2;
+            System.out.println("Will sort low half of " + lowerBound + "-" + upperBound);
             recMergeSort(workSpace, lowerBound, mid);
+            System.out.println("Will sort high half of " + lowerBound + "-" + upperBound);
             recMergeSort(workSpace, mid+1, upperBound);
+            System.out.println("Will merge halves into " + lowerBound + "-" + upperBound);
             merge(workSpace, lowerBound, mid+1, upperBound);
         }
+        System.out.println("Return " + lowerBound + "-" + upperBound);
     }
     private void merge(long[] workSpace, int lowPtr, int highPtr, int upperBound) {
         int mid = highPtr-1;
@@ -46,9 +52,8 @@ class DArray {
             workSpace[ind++] = theArray[lowPtr++];
         while (highPtr <= upperBound)
             workSpace[ind++] = theArray[highPtr++];
-        for (int i = 0; i < cntElm; i++) {
-            theArray[lowerBound + i] = workSpace[i];
-        }
+
+        if (cntElm >= 0) System.arraycopy(workSpace, 0, theArray, lowerBound + 0, cntElm);
     }
 }
 public class MergeSortApp {
